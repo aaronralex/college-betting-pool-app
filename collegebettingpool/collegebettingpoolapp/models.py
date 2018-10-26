@@ -25,11 +25,15 @@ class Game(models.Model):
     datetime = models.DateTimeField(default=0)
     week = models.IntegerField(default=0)
     game_of_the_week = models.CharField(default=0, max_length=200) #yes or no
+    def __str__(self):
+            return self.favorite
 
 class Game_of_the_Week(models.Model):
     team_1 = models.CharField(max_length=200)
     team_2 = models.CharField(max_length=200)
     total_points_scored = models.IntegerField(default=0)
+    def __str__(self):
+            return self.team_1
 
 class BettingSheet(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -37,6 +41,8 @@ class BettingSheet(models.Model):
     high_risk_game = models.CharField(max_length=200)
     participant_username = models.CharField(max_length=200)
     week = models.IntegerField(default=0)
+    def __str__(self):
+            return self.participant_username
 
 
 
