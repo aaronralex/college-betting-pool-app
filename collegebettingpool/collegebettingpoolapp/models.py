@@ -24,26 +24,23 @@ class Game(models.Model):
     tv = models.CharField(max_length=20)
     datetime = models.DateTimeField(default=0)
     week = models.IntegerField(default=0)
-    game_of_the_week = models.CharField(default=0, max_length=200) #yes or no
     def __str__(self):
-            return self.favorite
-
-class Game_of_the_Week(models.Model):
-    team_1 = models.CharField(max_length=200)
-    team_2 = models.CharField(max_length=200)
-    total_points_scored = models.IntegerField(default=0)
-    def __str__(self):
-            return self.team_1
+        return self.favorite
 
 class BettingSheet(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    game_of_the_week = models.ForeignKey(Game_of_the_Week, on_delete=models.CASCADE)
+    game_of_the_week = models.CharField(max_length=200)
+    total_points_scored = models.IntegerField(default=0)
     high_risk_game = models.CharField(max_length=200)
-    participant_username = models.CharField(max_length=200)
     week = models.IntegerField(default=0)
     def __str__(self):
-            return self.participant_username
+        return self.week
 
-
+class Participant(models.Model):
+    betting_sheet = models.ForeignKey(BettingSheet, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    total_points = models.IntegerField(default=0)
+    def __str__(self):
+        return self.name
 
 
