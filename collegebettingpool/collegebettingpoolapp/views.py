@@ -11,13 +11,13 @@ def index(request):
 	current_week_game_list = Game.objects.order_by('id')[:15]
 	context = {'current_week_game_list': current_week_game_list}
 
-	if requst.method == "POST":
-		userID = request.post['username']
-		userID.save()
+	if request.method == "POST":
+		userID = request.POST["username"]
 
-		for game in current_week_game_list
-			bet_selection = request.POST[game.id]
-			bet_selection.save()
+		for game in current_week_game_list:
+			bet_selection = request.POST["favorite"]
+			bet = Bet(1, 2, 1, 0, bet_selection)
+			bet.save()
 
 	return render(request, 'collegebettingpoolapp/home.html', context)
 
