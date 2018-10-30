@@ -37,8 +37,5 @@ class Bet(models.Model):
     userID = models.IntegerField(default=0)
     gameID = models.IntegerField(default=0)
     week = models.IntegerField(default=0)
-<<<<<<< HEAD
-    bet_selection = models.CharField(max_length=200)
-=======
->>>>>>> 2dab3a74f13f267393dac9ee1fbbb142d94c137e
     winner = models.BooleanField()
+    bet_selection = models.CharField(max_length=200)
