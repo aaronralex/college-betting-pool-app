@@ -8,6 +8,8 @@
 
   <h1>College Betting Sheet</h1>
 
+    <form target="_blank" method="POST">
+        {% csrf_token %}
   	<table style="width:100%">
   		<tr>
   			<th>Favorite</th>
@@ -26,8 +28,9 @@
   		</tr>
   		{% endfor %}
   	</table>
-	<input type="hidden" name="username" value="{{ user.username }}">
+	<input type="hidden" name="userID" value="{{ user.id }}">
   	<input type="Submit" value="Submit Betting Sheet" />
+    </form>
 
   <br/>
   <!--<button type="submit">Logout</button>-->
