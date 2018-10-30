@@ -7,7 +7,7 @@ from django.template import loader
 from .models import Game, Bet
 
 
-def index(request, User):
+def index(request):
     current_week_game_list = Game.objects.order_by('id')[:15]
     context = {'current_week_game_list': current_week_game_list}
 
