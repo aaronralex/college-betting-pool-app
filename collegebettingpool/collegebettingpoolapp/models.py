@@ -39,3 +39,6 @@ class Bet(models.Model):
     week = models.IntegerField(default=0)
     winner = models.BooleanField()
     bet_selection = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.gameID + ', ' + self.userID
