@@ -45,3 +45,8 @@ class Participant(models.Model):
         return self.name
 
 
+class Bet(models.Model):
+    userID = models.IntegerField(default=0)
+    gameID = models.IntegerField(default=0)
+    week = models.IntegerField(default=0)
+    winner = models.BooleanField()
