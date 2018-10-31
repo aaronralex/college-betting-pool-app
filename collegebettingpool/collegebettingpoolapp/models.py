@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Game(models.Model):
     favorite = models.CharField(max_length=200)
     underdog = models.CharField(max_length=200)
@@ -39,3 +40,9 @@ class Bet(models.Model):
     week = models.IntegerField(default=0)
     winner = models.BooleanField()
     bet_selection = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = ("userID", "gameID")
+
+    def __str__(self):
+        return "Bet for User: " + str(self.userID) + "; Game: " + str(self.gameID)

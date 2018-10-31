@@ -22,15 +22,15 @@
   		</tr>
   		{% for game in current_week_game_list %}
   		<tr>
-  			<td><input type="radio" name="favorite" value="{{game.favorite}}" />{{ game.favorite }}</td>
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
   			<td>{{ game.line }}</td>
-  			<td><input type="radio" name="underdog" value="{{game.underdog}}" />{{ game.underdog }}</td>
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" />{{ game.underdog }}</td>
   			<td>{{ game.tv }}</td>
   			<td>{{ game.datetime }}</td>
   		</tr>
   		{% endfor %}
   	</table>
-	<input type="hidden" name="username" value="{{ user.username }}">
+	<input type="hidden" name="userID" value="{{ user.id }}">
   	<input type="Submit" value="Submit Betting Sheet" />
 
   </form>
