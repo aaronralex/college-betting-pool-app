@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.template import loader
 
-from .models import Game, BettingSheet, Participant, Bet
+from .models import Game, Bet
 
 
 def index(request):
@@ -12,17 +12,23 @@ def index(request):
     context = {'current_week_game_list': current_week_game_list}
 
     if request.method == "POST":
-        userID = request.POST["userID"]
+        user_id = request.POST["userID"]
 
         for game in current_week_game_list:
-            selection = request.POST["g"+str(game.id)]
+            selection = request.POST["g" + str(game.id)]
             if selection == game.favorite:
                 winner = True
             else:
                 winner = False
-
-            bet = Bet.objects.update_or_create(userID=userID, gameID=game.id, week=1, winner=winner,
-                                               bet_selection=selection)
+            try:
+                select_object = Bet.objects.get(userID=user_id, gameID=game.id)
+                b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=1,
+                        winner=winner, bet_selection=selection)
+                b.save()
+            except Bet.DoesNotExist:
+                b = Bet(userID=user_id, gameID=game.id, week=1, winner=winner,
+                        bet_selection=selection)
+                b.save()
 
     return render(request, 'collegebettingpoolapp/home.html', context)
 
