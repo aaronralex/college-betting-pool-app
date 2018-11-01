@@ -25,7 +25,11 @@ class Bet(models.Model):
         unique_together = ("userID", "gameID")
 
     def __str__(self):
-        return "Bet for User: " + str(self.userID) + "; Game: " + str(self.gameID)
+        u = User.objects.get(id=self.userID)
+        name = u.first_name
+        if(name == ""):
+            name = u.username
+        return "Bet for User: " + name + "; Game: " + str(self.gameID)
 
 
 class Setting(models.Model):
