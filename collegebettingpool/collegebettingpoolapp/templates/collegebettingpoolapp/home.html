@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <p>Hi {{ user.username }}! This is the start of something great by the Super Software Bros.</p>
+  <p>Welcome, {{ user.username }}! Please make your bets below.</p>
 
   <h1>College Betting Sheet</h1>
 
@@ -30,7 +30,10 @@
   		</tr>
   		{% endfor %}
   	</table>
-	<input type="hidden" name="userID" value="{{ user.id }}">
+
+    <p>GAME OF THE WEEK: [Enter the Total Points Scored] <input type="text" name="game_of_the_week_points"> </p>
+
+	  <input type="hidden" name="userID" value="{{ user.id }}">
   	<input type="Submit" value="Submit Betting Sheet" />
 
   </form>

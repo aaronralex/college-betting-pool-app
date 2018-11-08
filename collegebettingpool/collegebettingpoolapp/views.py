@@ -14,6 +14,7 @@ def index(request):
 
     if request.method == "POST":
         user_id = request.POST["userID"]
+        game_of_the_week_points = request.POST["game_of_the_week_points"]
 
         for game in current_week_game_list:
             selection = request.POST["g" + str(game.id)]
@@ -33,6 +34,9 @@ def index(request):
 
     return render(request, 'collegebettingpoolapp/home.html', context)
 
+def scores(request):
+
+	return render(request, 'collegebettingpoolapp/scores.html')
 
 def about(request):
     return render(request, 'collegebettingpoolapp/about.html')
