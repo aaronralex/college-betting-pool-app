@@ -25,11 +25,10 @@ def index(request):
             try:
                 select_object = Bet.objects.get(userID=user_id, gameID=game.id)
                 b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                        winner=winner, bet_selection=selection)
+                        winner=winner)
                 b.save()
             except Bet.DoesNotExist:
-                b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner,
-                        bet_selection=selection)
+                b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner)
                 b.save()
 
     return render(request, 'collegebettingpoolapp/home.html', context)
