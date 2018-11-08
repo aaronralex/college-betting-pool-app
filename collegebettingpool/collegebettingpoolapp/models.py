@@ -23,7 +23,7 @@ class Bet(models.Model):
     gameID = models.IntegerField(default=0)
     week = models.IntegerField(default=0)
     winner = models.BooleanField()
-    bet_selection = models.CharField(max_length=200)
+    is_valid = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ("userID", "gameID")
