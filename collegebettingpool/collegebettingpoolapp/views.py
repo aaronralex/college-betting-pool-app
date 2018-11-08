@@ -34,9 +34,10 @@ def index(request):
 
     return render(request, 'collegebettingpoolapp/home.html', context)
 
-def scores(request):
 
-	return render(request, 'collegebettingpoolapp/scores.html')
+def scores(request):
+    return render(request, 'collegebettingpoolapp/scores.html')
+
 
 def about(request):
     return render(request, 'collegebettingpoolapp/about.html')
