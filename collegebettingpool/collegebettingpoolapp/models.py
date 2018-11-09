@@ -4,6 +4,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+#class Week(models.Model)
+#    week_number = models.IntegerField()
+
 class Game(models.Model):
     favorite = models.CharField(max_length=200)
     underdog = models.CharField(max_length=200)
@@ -19,6 +22,10 @@ class Game(models.Model):
 
 
 class Bet(models.Model):
+    #participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
+    #game = models.ForeignKey('Game', on_delete=models.CASCADE)
+
+
     userID = models.IntegerField(default=0)
     gameID = models.IntegerField(default=0)
     week = models.IntegerField(default=0)
@@ -51,16 +58,16 @@ class Participant(models.Model):
     has_paid = models.BooleanField(default=False)
 
     @receiver(post_save, sender=User)
-    def create_user_profile(self, instance, created, **kwargs):
+    def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Participant.objects.create(user=instance)
 
     @receiver(post_save, sender=User)
-    def save_user_profile(self, instance, **kwargs):
+    def save_user_profile(sender, instance, **kwargs):
         instance.participant.save()
 
 
-class Score(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    week = models.IntegerField(default=0)
-    score = models.IntegerField(default=0)
+#class Score(models.Model):
+#    user = models.ForeignKey(User, on_delete=models.CASCADE)
+#    week = models.IntegerField(default=0)
+#    score = models.IntegerField(default=0)

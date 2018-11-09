@@ -3,9 +3,29 @@
 {% block title %}Scores{% endblock %}
 
 {% block content %}
-	<h3>Scores Page</h3>
-	<p>
-		This is the scores page for our College Betting Pool App.
-	</p>
+
+	<h1>Current Scores</h1>
+	{% if user.is_authenticated %}
+
+	<table style="width:50%">
+  		<tr>
+  			<th>Participant</th>
+  			<th>Total Points</th>
+  		</tr>
+		
+		{% for participant in participants %}
+
+		<tr>
+			<td> {{participant.user.username}} </td>
+			<td> {{participant.total_points}} </td>
+		</tr>
+
+		{% endfor %}
+
+	</table>
+
+	{% else %}
+  	<p>You are not logged in</p>
+	{% endif %}
 
 {% endblock %}

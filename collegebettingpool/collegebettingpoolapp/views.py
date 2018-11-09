@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.template import loader
 
-from .models import Game, Bet, Setting
+from .models import Game, Bet, Setting, Participant
 
 
 def index(request):
@@ -35,7 +35,15 @@ def index(request):
 
 
 def scores(request):
-    return render(request, 'collegebettingpoolapp/scores.html')
+	try:
+		participants = Participant.objects.all().order_by('total_points')
+	except (KeyError, Participant.DoesNotExist):
+		participants = ['null msg', 'null msg']
+
+	context = {'participants' : participants}
+
+	return render(request, 'collegebettingpoolapp/scores.html', context)
+
 
 
 def about(request):
