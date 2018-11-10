@@ -9,8 +9,11 @@ from .models import Game, Bet, Setting, Participant
 
 def index(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
+    user_id = request.user.id
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
-    context = {'current_week_game_list': current_week_game_list}
+    current_user_bets = Bet.objects.filter(userID=user_id)
+    context = {'current_week_game_list': current_week_game_list,
+               'current_user_bets': current_user_bets}
 
     if request.method == "POST":
         user_id = request.POST["userID"]
@@ -35,15 +38,14 @@ def index(request):
 
 
 def scores(request):
-	try:
-		participants = Participant.objects.all().order_by('total_points')
-	except (KeyError, Participant.DoesNotExist):
-		participants = ['null msg', 'null msg']
+    try:
+        participants = Participant.objects.all().order_by('total_points')
+    except (KeyError, Participant.DoesNotExist):
+        participants = ['null msg', 'null msg']
 
-	context = {'participants' : participants}
+    context = {'participants': participants}
 
-	return render(request, 'collegebettingpoolapp/scores.html', context)
-
+    return render(request, 'collegebettingpoolapp/scores.html', context)
 
 
 def about(request):
