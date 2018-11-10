@@ -67,8 +67,16 @@ class Participant(models.Model):
         instance.participant.save()
 
 
-#class Score(models.Model):
-#    user = models.ForeignKey(User, on_delete=models.CASCADE)
-#    week = models.IntegerField(default=0)
-#    score = models.IntegerField(default=0)
+class Score(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    week = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.user.username + ' score for Week: ' + self.week.value_to_string
+
+
+class GameOfWeekScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    week = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
