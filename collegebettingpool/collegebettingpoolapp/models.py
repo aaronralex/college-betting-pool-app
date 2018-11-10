@@ -71,4 +71,3 @@ class Participant(models.Model):
 #    user = models.ForeignKey(User, on_delete=models.CASCADE)
 #    week = models.IntegerField(default=0)
 #    score = models.IntegerField(default=0)
-
