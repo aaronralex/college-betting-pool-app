@@ -11,7 +11,7 @@ def index(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
     user_id = request.user.id
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
-    current_user_bets = Bet.objects.filter(userID=user_id)
+    current_user_bets = Bet.objects.filter(userID=user_id, week=current_week.value)
     context = {'current_week_game_list': current_week_game_list,
                'current_user_bets': current_user_bets}
 
