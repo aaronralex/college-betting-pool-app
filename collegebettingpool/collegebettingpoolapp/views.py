@@ -11,7 +11,7 @@ def index(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
     user_id = request.user.id
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
-    current_user_bets = Bet.objects.filter(userID=user_id)
+    current_user_bets = Bet.objects.filter(userID=user_id, week=current_week.value)
     context = {'current_week_game_list': current_week_game_list,
                'current_user_bets': current_user_bets }
 
@@ -28,10 +28,10 @@ def index(request):
             try:
                 select_object = Bet.objects.get(userID=user_id, gameID=game.id)
                 b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                        winner=winner)
+                        winner=winner, game=game)
                 b.save()
             except Bet.DoesNotExist:
-                b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner)
+                b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
                 b.save()
 
     return render(request, 'collegebettingpoolapp/home.html', context)
