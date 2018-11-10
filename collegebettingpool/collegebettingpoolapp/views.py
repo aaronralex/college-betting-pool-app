@@ -13,7 +13,7 @@ def index(request):
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
     current_user_bets = Bet.objects.filter(userID=user_id)
     context = {'current_week_game_list': current_week_game_list,
-               'current_user_bets': current_user_bets}
+               'current_user_bets': current_user_bets }
 
     if request.method == "POST":
         user_id = request.POST["userID"]
@@ -46,6 +46,20 @@ def scores(request):
     context = {'participants': participants}
 
     return render(request, 'collegebettingpoolapp/scores.html', context)
+
+
+def history(request):
+	current_week = Setting.objects.get(setting="CurrentWeek")
+	user_id = request.user.id
+
+	current_week_game_list = Game.objects.all().filter(week=current_week.value).order_by('id')[:15]
+
+	current_user_bets = Bet.objects.all().filter(week=current_week.value, userID=user_id)
+
+	context = {'current_week_game_list': current_week_game_list,
+				'current_user_bets': current_user_bets }
+
+	return render(request, 'collegebettingpoolapp/history.html', context)
 
 
 def about(request):
