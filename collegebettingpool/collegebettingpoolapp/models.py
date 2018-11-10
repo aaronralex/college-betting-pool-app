@@ -31,6 +31,7 @@ class Bet(models.Model):
     week = models.IntegerField(default=0)
     winner = models.BooleanField()
     is_valid = models.BooleanField(default=False)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("userID", "gameID")
