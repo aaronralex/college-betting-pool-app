@@ -6,6 +6,12 @@
 {% if user.is_authenticated %}
   <p>Welcome, {{ user.username }}! Please make your bets below.</p>
 
+  
+{% for bet in current_week_game_choices %}
+  {{bet.winner}}
+
+  {% endfor %}
+
   <h1>College Betting Sheet</h1>
 
   	<form target="/" method="post">
@@ -21,13 +27,57 @@
   			<th>Date/Time</th>
   		</tr>
   		{% for game in current_week_game_list %}
+  		{% q = True %}
+  		{% for bet in current_week_game_choices %}
+  		{% if bet.gameID == game.id%}
   		<tr>
-  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
+  			{% if bet.winner == True %}
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}"  checked="checked"  />{{ game.favorite }}</td>
+
   			<td>{{ game.line }}</td>
+
   			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" />{{ game.underdog }}</td>
+
+
+  			<td>{{ game.tv }}</td>
+  			<td>{{ game.datetime }}</td>
+
+
+  			{% else %}
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
+
+  			<td>{{ game.line }}</td>
+
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" checked="checked" />{{ game.underdog }}</td>
+
+  			<td>{{ game.tv }}</td>
+  			<td>{{ game.datetime }}</td>
+
+  			{% endif %}
+	
+  		</tr>
+  		
+
+  			{% q = False %}
+  			{% endif %}
+
+  		{% endfor %}
+
+  		{% if q %}
+  		<tr>
+  		
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
+
+
+  			<td>{{ game.line }}</td>
+
+  			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" />{{ game.underdog }}</td>
+
+
   			<td>{{ game.tv }}</td>
   			<td>{{ game.datetime }}</td>
   		</tr>
+  		{% endif %}
   		{% endfor %}
   	</table>
 
