@@ -1,114 +1,120 @@
-<!-- templates/base.html -->
 {% load static %}
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
 <head>
-	<style>
-body {
-    background-color: white;
-}
-
-h1 {
-    color: maroon;
-    margin-left: 40px;
-} 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #2438;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover:not(.active) {
-    background-color: #111;
-}
-
-.active {
-    background-color: #4CAF50;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 15px;
-    text-align: left;
-}
-table#t01 {
-    width: 100%;    
-    background-color: #f1f1c1;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</style>
-
-	<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-
-    <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-  	<link rel="stylesheet" type="text/css" href= "{% static 'collegebettingpoolapp/main.css'%}">
-
-  	<title>{% block title %}College Betting App{% endblock %}</title>
+   <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+   <title>{% block title %}College Betting Pool - Super Software Bros - The University of Memphis{% endblock %}</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="http://fonts.googleapis.com/css?family=Bitter:400,700,400italic" rel="stylesheet" type="text/css">
+   <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+   <link rel="shortcut icon" type="image/x-icon" href="http://www.memphis.edu/favicon.ico">
+   <meta name="msapplication-TileColor" content="#ffffff">
+   <meta name="theme-color" content="#00498f">
+   <link rel="stylesheet" href="{% static 'collegebettingpoolapp/style.css'%}">
 </head>
 <body>
-	<header>
-		    <h1>College Betting Pool</h1>
-    <ul>
-  <li><a href="{% url 'index' %}">Home</a></li>
-  {% if user.is_authenticated %}
-  <li><a href="{% url 'bettingpool-about' %}">About</a></li>
-  <li><a href="{% url 'logout' %}">Logout</a></li>
-  {% else %}
-  <li><a href="{% url 'login' %}">Login</a></li>
-  {% endif %}
-  
-	</header>
-	<hr>
-  <main>
-    {% block content %}
-	
-    {% endblock %}
-  </main>
+   
+   <header>      
+         <!-- begin header -->
+   <div class="header--bg__behind"></div>
+   <div class="header--bg">
+      <div class="header--bg2">
+         <div class="header--wrapper container">
+            <div class="row header--bg3">
+               <div class="col-xs-20 col-md-6 col-lg-7">
+				   <div class="header--logo">
+					  <a title="The University of Memphis" href="http://www.memphis.edu/"><img src="{% static 'collegebettingpoolapp/images/UofM_EECE_logo.png'%}" alt="The University of Memphis"/></a>
+                  </div>
+                     </div>
+               <div id="header--menu__button" class="header--menu__button col-xs-4 col-md-hidden">
+                  <span id="header--menu__button__bars" class="fa fa-bars"></span>
+               </div>
+               <div id="header--menu" class="header--menu col-sm-13 col-sm-push-11 col-md-18 col-lg-17 col-xs-hidden col-md-show">
+                  <div style="position: relative;" class="row">
+                     <div class="header--top">
+                        <div class="header--top__wrap">
+                           <nav aria-label="utility-menu">
+                              <ul>
+                                 <li><a href="{% url 'index' %}" title="Home">Home</a></li>
+                                 {% if user.is_authenticated %}
+                                 <li><a href="{% url 'bettingpool-about' %}" title="About">About</a></li>
+                                 <li><a href="{% url 'logout' %}" title="Logout">Logout</a></li>
+                                 {% else %}
+                                 <li><a href="{% url 'login' %}" title="Login">Login</a></li>
+                                 {% endif %}
+                              </ul>
+                           </nav>
+                           
+                           <div class="header--top__expand"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div id="header--box" class="header--box col-md-24 col-xs-hidden col-md-show">
+                  
+				  <!-- megamenu -->			   
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- end header -->      
+      
+         </header>
+   <div class="type--microsite type--page">
+      <div class="background cover">
+         <div class="container">
+            <div class="row">
+               <div class="cover--title">
+                  <div class="cover--title__wrap">
+                     <div class="col-xs-24 col-md-17 col-md-offset-7"><a href="{% url 'index' %}" style="color:white">
+                           			College Betting Pool
+                           	</a>
+                        <!--******RANKINGS****** /var/staging/memphis/main/www/pp/config/ranking.pcf--></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="content">
+         <div class="content--top">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-18 col-md-offset-6">
+                     <ul class="top--links">
+                        <li><a href="{% url 'index' %}" title="Current Betting Sheet">Current Betting Sheet</a></li>
+                        <li><a href="{% url 'index' %}" title="Previous Betting Sheets">Previous Betting Sheets</a></li>
+                        <li><a href="{% url 'index' %}" title="Ranking">Ranking</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endif %}
+         <div class="container">
+                     {% block content %}
+   
+                     {% endblock %}
+                     
+            </div>
+         </div>
+      </div>
+   </footer>
+   
+   
+   
+   
+   
+   
 </body>
+
+
+
+
+<!-- Mirrored from www.memphis.edu/pp/ppt.php by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Aug 2018 15:41:00 GMT -->
 </html>
+
+

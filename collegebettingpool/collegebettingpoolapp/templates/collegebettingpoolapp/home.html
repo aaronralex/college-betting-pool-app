@@ -4,10 +4,9 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <p>Hi {{ user.username }}! This is the start of something great by the Super Software Bros.</p>
-
   <h1>College Betting Sheet</h1>
 
+  <p>Hi {{ user.username }}! This is the start of something great by the Super Software Bros.</p>
   	<form target="/" method="post">
 
   	{% csrf_token %}
