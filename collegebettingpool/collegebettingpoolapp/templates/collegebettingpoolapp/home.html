@@ -12,24 +12,30 @@
 
   	{% csrf_token %}
 
-  	<table style="width:100%">
-  		<tr>
-  			<th>Favorite</th>
-  			<th>Line</th>
-  			<th>Underdog</th>
-  			<th>TV</th>
-  			<th>Date/Time</th>
-  		</tr>
-  		{% for game in current_week_game_list %}
-  		<tr>
-  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
-  			<td>{{ game.line }}</td>
-  			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" />{{ game.underdog }}</td>
-  			<td>{{ game.tv }}</td>
-  			<td>{{ game.datetime }}</td>
-  		</tr>
-  		{% endfor %}
-  	</table>
+<div class="table-wrapper">
+	<table class="alt">
+		<thead>
+			<tr>
+				<th>Favorite</th>
+  				<th>Line</th>
+  				<th>Underdog</th>
+  				<th>TV</th>
+  				<th>Date/Time</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for game in current_week_game_list %}
+	  		<tr>
+	  			<td><input type="radio" id="g{{ game.id }}" name="g{{ game.id }}" value="{{game.favorite}}"><label for="g{{ game.id }}">{{ game.favorite }}</label></td>
+	  			<td>{{ game.line }}</td>
+	  			<td><input type="radio" id="g{{ game.id }}+" name="g{{ game.id }}" value="{{game.underdog}}"><label for="g{{ game.id }}+">{{ game.underdog }}</label></td>
+	  			<td>{{ game.tv }}</td>	
+	  			<td>{{ game.datetime }}</td>
+	  		</tr>
+	  		{% endfor %}
+		</tbody>
+	</table>
+</div>
 
     <p>GAME OF THE WEEK: [Enter the Total Points Scored] <input type="text" name="game_of_the_week_points"> </p>
 
