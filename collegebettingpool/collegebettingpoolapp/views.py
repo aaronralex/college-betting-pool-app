@@ -15,20 +15,20 @@ def index(request):
     current_user_bets = Bet.objects.filter(userID=user_id, week=current_week.value)
 
     cursor = connection.cursor()
-    cursor.execute("""
-        SELECT g.*, b.winner
-        FROM collegebettingpoolapp_game g 
-        LEFT JOIN collegebettingpoolapp_bet b
-            ON b.gameID = g.id
-        WHERE g.week = %s
-            AND (b.userID = %s
-                    OR b.userID IS NULL)""", [current_week.value, user_id])
-
-    query = cursor.fetchall()
-
-    context = {'current_week_game_list': current_week_game_list,
-               'current_user_bets': current_user_bets,
-               'query': query}
+    # cursor.execute("""
+    #     SELECT g.*, b.winner
+    #     FROM collegebettingpoolapp_game g
+    #     LEFT JOIN collegebettingpoolapp_bet b
+    #         ON b.gameID = g.id
+    #     WHERE g.week = %s
+    #         AND (b.userID = %s
+    #                 OR b.userID IS NULL)""", [current_week.value, user_id])
+    #
+    # query = cursor.fetchall()
+    #
+    # context = {'current_week_game_list': current_week_game_list,
+    #            'current_user_bets': current_user_bets,
+    #            'query': query}
 
     if request.method == "POST":
         user_id = request.POST["userID"]
@@ -48,6 +48,21 @@ def index(request):
             except Bet.DoesNotExist:
                 b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
                 b.save()
+
+    cursor.execute("""
+                SELECT g.*, b.winner
+                FROM collegebettingpoolapp_game g 
+                LEFT JOIN collegebettingpoolapp_bet b
+                    ON b.gameID = g.id
+                WHERE g.week = %s
+                    AND (b.userID = %s
+                            OR b.userID IS NULL)""", [current_week.value, user_id])
+
+    query = cursor.fetchall()
+
+    context = {'current_week_game_list': current_week_game_list,
+               'current_user_bets': current_user_bets,
+               'query': query}
 
     return render(request, 'collegebettingpoolapp/home.html', context)
 
