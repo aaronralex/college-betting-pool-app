@@ -4,9 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-#class Week(models.Model)
-#    week_number = models.IntegerField()
-
 class Game(models.Model):
     favorite = models.CharField(max_length=200)
     underdog = models.CharField(max_length=200)
@@ -22,15 +19,14 @@ class Game(models.Model):
 
 
 class Bet(models.Model):
-    #participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
-    #game = models.ForeignKey('Game', on_delete=models.CASCADE)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     userID = models.IntegerField(default=0)
     gameID = models.IntegerField(default=0)
     week = models.IntegerField(default=0)
     winner = models.BooleanField()
     is_valid = models.BooleanField(default=False)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    is_high_risk = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ("userID", "gameID")
@@ -53,7 +49,6 @@ class Setting(models.Model):
 
 class Participant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bet = models.ManyToManyField('Bet')
     total_points = models.IntegerField(default=0)
     has_paid = models.BooleanField(default=False)
 
@@ -68,7 +63,7 @@ class Participant(models.Model):
 
 
 class Score(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Participant, on_delete=models.CASCADE)
     week = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
 
@@ -77,6 +72,7 @@ class Score(models.Model):
 
 
 class GameOfWeekScore(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Participant, on_delete=models.CASCADE)
     week = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
+

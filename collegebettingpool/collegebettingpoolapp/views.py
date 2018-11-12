@@ -32,22 +32,23 @@ def index(request):
 
     if request.method == "POST":
         user_id = request.POST["userID"]
-        game_of_the_week_points = request.POST["game_of_the_week_points"]
+        game_of_the_week_points = request.POST.get("game_of_the_week_points", 0)
 
         for game in current_week_game_list:
-            selection = request.POST["g" + str(game.id)]
-            if selection == game.favorite:
-                winner = True
-            else:
-                winner = False
-            try:
-                select_object = Bet.objects.get(userID=user_id, gameID=game.id)
-                b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                        winner=winner, game=game)
-                b.save()
-            except Bet.DoesNotExist:
-                b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
-                b.save()
+            if "g" + str(game.id) in request.POST:
+                selection = request.POST["g" + str(game.id)]
+                if selection == game.favorite:
+                    winner = True
+                else:
+                    winner = False
+                try:
+                    select_object = Bet.objects.get(userID=user_id, gameID=game.id)
+                    b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
+                            winner=winner, game=game, user=request.user)
+                    b.save()
+                except Bet.DoesNotExist:
+                    b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
+                    b.save()
 
     cursor.execute("""
                 SELECT g.*, b.winner
