@@ -24,6 +24,7 @@
 				<ul class="links">
 					<li><a href="{% url 'index' %}">Home</a></li>
 					{% if user.is_authenticated %}
+					<li><a href="{% url 'homepage' %}">Homepage</a></li>
   					<li><a href="{% url 'bettingpool-history' %}">History</a></li>
   					<li><a href="{% url 'bettingpool-scores' %}">Scores</a></li>
   					<li><a href="{% url 'bettingpool-about' %}">About</a></li>
@@ -32,31 +33,15 @@
   					{% else %}
   					<li><a href="{% url 'login' %}">Login</a></li>
   					{% endif %}
-					<li><a href="{% url 'bettingpool-elements' %}">Elements</a></li>
-					<li><a href="{% url 'bettingpool-generic' %}">Generic</a></li>
+					<li><a href="{% url 'bettingpool-elements' %}">*Elements*</a></li>
+					<li><a href="{% url 'bettingpool-generic' %}">*Generic*</a></li>
 				</ul>
 			</nav>
-
-		<!-- Banner -->
-			<section id="banner">
-				<div class="inner">
-					<h1>College Betting Pool</h1>
-					<p>Designed by The Super Software Bros<br />
-						in partial fulfillment of the <a href="https://www.memphis.edu">University of Memphis</a> Software Engineering class.</p>
-				</div>
-				<video autoplay loop muted playsinline src="{% static 'collegebettingpoolapp/images/banner.mp4'%}"></video>
-			</section>
-
-		<!-- Highlights -->
-			<section class="wrapper">
-				<div class="inner">
-					<header class="special">
-						{% block content %}
+			
+			{% block content %}
 	
-    					{% endblock %}
-					</header>
-				</div>
-			</section>
+			{% endblock %}
+					
 
 		<!-- CTA -->
 			<section id="cta" class="wrapper">

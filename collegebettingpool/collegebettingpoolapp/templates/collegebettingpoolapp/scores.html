@@ -3,33 +3,43 @@
 {% block title %}Scores{% endblock %}
 
 {% block content %}
+<div id="heading" >
+	<h1>About</h1>
+</div>
+<section id="main" class="wrapper">
+	<div class="inner">
+		<div class="content">
+			<header class="special">
+			<h1>Current Scores</h1>
+			</header>
+			{% if user.is_authenticated %}
 
-	<h1>Current Scores</h1>
-	{% if user.is_authenticated %}
+			<table style="width:50%">
+		  		<tr>
+		  			<th>Rank</th>
+		  			<th>Participant</th>
+		  			<th>Total Points</th>
+		  		</tr>
+				
+				{{participants.0.user.username}}
 
-	<table style="width:50%">
-  		<tr>
-  			<th>Rank</th>
-  			<th>Participant</th>
-  			<th>Total Points</th>
-  		</tr>
-		
-		{{participants.0.user.username}}
+				{% for participant in participants %}
 
-		{% for participant in participants %}
+				<tr>
+					<td> {{ forloop.counter }} </td>
+					<td> {{participant.user.username}} {{participants.0}}</td>
+					<td> {{participant.total_points}} </td>
+				</tr>
 
-		<tr>
-			<td> {{ forloop.counter }} </td>
-			<td> {{participant.user.username}} {{participants.0}}</td>
-			<td> {{participant.total_points}} </td>
-		</tr>
+				{% endfor %}
 
-		{% endfor %}
+			</table>
 
-	</table>
-
-	{% else %}
-  	<p>You are not logged in</p>
-	{% endif %}
+			{% else %}
+		  	<p>You are not logged in</p>
+			{% endif %}
+		</div>
+	</div>
+</section>
 
 {% endblock %}

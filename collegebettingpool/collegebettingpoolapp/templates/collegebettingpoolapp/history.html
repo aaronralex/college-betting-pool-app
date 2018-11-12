@@ -3,26 +3,36 @@
 {% block title %}Betting History{% endblock %}
 
 {% block content %}
-
-	<h1>Past Betting Sheets</h1>
+<div id="heading" >
+	<h1>History</h1>
+</div>
+	
 	{% if user.is_authenticated %}
 
-<!-- 	<table style="width:50%">
-  		<tr>
-  			<th>Participant</th>
-  			<th>Total Points</th>
-  		</tr>
-		
-		{% for participant in participants %}
+<section id="main" class="wrapper">
+	<div class="inner">
+		<div class="content">
+			<header class="special">
+				<h2>Past Betting Sheets</h2>
+			</header>			
+			<!--<table style="width:50%">
+		  		<tr>
+		  			<th>Participant</th>
+		  			<th>Total Points</th>
+		  		</tr>
+				
+				{% for participant in participants %}
 
-		<tr>
-			<td> {{participant.user.username}} </td>
-			<td> {{participant.total_points}} </td>
-		</tr>
+				<tr>
+					<td> {{participant.user.username}} </td>
+					<td> {{participant.total_points}} </td>
+				</tr>
 
-		{% endfor %}
-
-	</table> -->
+				{% endfor %}
+			</table> -->
+		</div>
+	</div>
+</section>
 
 	{% else %}
   	<p>You are not logged in</p>

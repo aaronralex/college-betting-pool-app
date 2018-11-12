@@ -10,4 +10,5 @@ urlpatterns = [
     path('about/', views.about, name='bettingpool-about'),
     path('elements/', views.elements, name='bettingpool-elements'),
     path('generic/', views.generic, name='bettingpool-generic'),
+    path('homepage/', views.homepage, name='homepage'),
 ]

@@ -3,48 +3,55 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }}! Please make your bets below.</p>
-
-  <h1>College Betting Sheet</h1>
-
-  	<form target="_self" method="post">
-
-  	{% csrf_token %}
-
-<div class="table-wrapper">
-	<table class="alt">
-		<thead>
-			<tr>
-				<th>Favorite</th>
-  				<th>Line</th>
-  				<th>Underdog</th>
-  				<th>TV</th>
-  				<th>Date/Time</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for game in current_week_game_list %}
-	  		<tr>
-	  			<td><input type="radio" id="g{{ game.id }}" name="g{{ game.id }}" value="{{game.favorite}}"><label for="g{{ game.id }}">{{ game.favorite }}</label></td>
-	  			<td>{{ game.line }}</td>
-	  			<td><input type="radio" id="g{{ game.id }}+" name="g{{ game.id }}" value="{{game.underdog}}"><label for="g{{ game.id }}+">{{ game.underdog }}</label></td>
-	  			<td>{{ game.tv }}</td>	
-	  			<td>{{ game.datetime }}</td>
-	  		</tr>
-	  		{% endfor %}
-		</tbody>
-	</table>
+<div id="heading" >
+	<h1>College Betting Sheet</h1>
 </div>
+{% if user.is_authenticated %}
+<section id="main" class="wrapper">
+	<div class="inner">
+		<div class="content">
+		<header class="special">	
+			<h3>Welcome, {{ user.username }}!</h3>
+			<p>Please place your bets below:</p>
+	  	</header>
+	  	<form target="_self" method="post">
 
-    <p>GAME OF THE WEEK: [Enter the Total Points Scored] <input type="text" name="game_of_the_week_points"> </p>
+	  	{% csrf_token %}
 
-	  <input type="hidden" name="userID" value="{{ user.id }}">
-  	<input type="Submit" value="Submit Betting Sheet" />
-
-  </form>
-
-  <br/>
+		<div class="table-wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>Favorite</th>
+		  				<th>Line</th>
+		  				<th>Underdog</th>
+		  				<th>TV</th>
+		  				<th>Date/Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for game in current_week_game_list %}
+			  		<tr>
+			  			<td><input type="radio" id="g{{ game.id }}" name="g{{ game.id }}" value="{{game.favorite}}"><label for="g{{ game.id }}">{{ game.favorite }}</label></td>
+			  			<td>{{ game.line }}</td>
+			  			<td><input type="radio" id="g{{ game.id }}+" name="g{{ game.id }}" value="{{game.underdog}}"><label for="g{{ game.id }}+">{{ game.underdog }}</label></td>
+			  			<td>{{ game.tv }}</td>	
+			  			<td>{{ game.datetime }}</td>
+			  		</tr>
+			  		{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<header class="special">
+			<h3>Game of the week</h3>
+		    <p>[Enter the Total Points Scored]<input type="text" name="game_of_the_week_points"></p>
+		  	<input type="hidden" name="userID" value="{{ user.id }}">
+	  		<input type="Submit" value="Submit Betting Sheet" />
+	  	</header>
+	  </form>
+	  </div>
+	</div>
+</section>
   <!--<button type="submit">Logout</button>-->
 {% else %}
   <p>You are not logged in</p>

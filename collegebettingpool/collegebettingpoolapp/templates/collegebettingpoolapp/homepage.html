@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>College Betting Pool</h1>
+					<p>Designed by The Super Software Bros<br />
+						in partial fulfillment of the <a href="https://www.memphis.edu">University of Memphis</a> Software Engineering class.</p>
+				</div>
+				<video autoplay loop muted playsinline src="{% static 'collegebettingpoolapp/images/banner.mp4'%}"></video>
+			</section>
+			
+{% if user.is_authenticated %}  
+
+<!-- Highlights -->
+			<section class="wrapper">
+				<div class="inner">
+					<header class="special">
+						<h1>College Betting Pool</h1>
+						<p>Welcome, {{ user.username }}! Please make your bets below.</p>
+					</header>
+					<div class="highlights">
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+									<h3>Feugiat consequat</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-files-o"><span class="label">Icon</span></a>
+									<h3>Ante sem integer</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+									<h3>Ipsum consequat</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-line-chart"><span class="label">Icon</span></a>
+									<h3>Interdum gravida</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
+									<h3>Faucibus consequat</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+						<section>
+							<div class="content">
+								<header>
+									<a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
+									<h3>Accumsan viverra</h3>
+								</header>
+								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+{% else %}
+  <p>You are not logged in</p>
+{% endif %}
+{% endblock %}

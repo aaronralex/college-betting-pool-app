@@ -619,7 +619,8 @@ ul.alt li {
   overflow-x: auto; }
 
 table {
-  margin: 0 0 2rem 0;
+  margin: 0 0 2rem 0; 
+  text-align: left;
   width: 100%; }
   table tbody tr {
     border: solid 1px;
@@ -637,7 +638,7 @@ table {
   table tfoot {
     border-top: solid 2px; }
   table.alt {
-    border-collapse: separate; }
+    border-collapse: separate;}
     table.alt tbody tr td {
       border: solid 1px;
       border-left-width: 0;
@@ -2444,7 +2445,7 @@ body {
     padding: 0 1.25rem;
     text-decoration: none; }
   .block-img {
-    margin-top: 5px;
+    margin-top: 4px;
     width: 20%; }
   .logo-img {
     width: 100% }
