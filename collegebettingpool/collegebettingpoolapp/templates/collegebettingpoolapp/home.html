@@ -8,6 +8,7 @@
 
   <h1>College Betting Sheet</h1>
 
+    <p>{{ query }}</p>
   	<form target="_self" method="post">
 
   	{% csrf_token %}
@@ -20,13 +21,13 @@
   			<th>TV</th>
   			<th>Date/Time</th>
   		</tr>
-  		{% for game in current_week_game_list %}
+  		{% for row in query %}
   		<tr>
-  			<td><input type="radio" name="g{{ game.id }}" value="{{game.favorite}}" />{{ game.favorite }}</td>
-  			<td>{{ game.line }}</td>
-  			<td><input type="radio" name="g{{ game.id }}" value="{{game.underdog}}" />{{ game.underdog }}</td>
-  			<td>{{ game.tv }}</td>
-  			<td>{{ game.datetime }}</td>
+  			<td><input type="radio" name="g{{ row.0 }}" value="{{row.1}}" />{{ row.1 }}</td>
+  			<td>{{ row.3 }}</td>
+  			<td><input type="radio" name="g{{ row.0 }}" value="{{row.2}}" />{{ row.2 }}</td>
+  			<td>{{ row.4 }}</td>
+  			<td>{{ row.5 }}</td>
   		</tr>
   		{% endfor %}
   	</table>

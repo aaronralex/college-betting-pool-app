@@ -25,7 +25,6 @@ class Bet(models.Model):
     #participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
     #game = models.ForeignKey('Game', on_delete=models.CASCADE)
 
-
     userID = models.IntegerField(default=0)
     gameID = models.IntegerField(default=0)
     week = models.IntegerField(default=0)

@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.template import loader
+from django.db import connection
 
 from .models import Game, Bet, Setting, Participant
 
@@ -12,8 +13,22 @@ def index(request):
     user_id = request.user.id
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
     current_user_bets = Bet.objects.filter(userID=user_id, week=current_week.value)
+
+    cursor = connection.cursor()
+    cursor.execute("""
+        SELECT g.*, b.winner
+        FROM collegebettingpoolapp_game g 
+        LEFT JOIN collegebettingpoolapp_bet b
+            ON b.gameID = g.id
+        WHERE g.week = %s
+            AND (b.userID = %s
+                    OR b.userID IS NULL)""", [current_week.value, user_id])
+
+    query = cursor.fetchall()
+
     context = {'current_week_game_list': current_week_game_list,
-               'current_user_bets': current_user_bets }
+               'current_user_bets': current_user_bets,
+               'query': query}
 
     if request.method == "POST":
         user_id = request.POST["userID"]
@@ -49,17 +64,17 @@ def scores(request):
 
 
 def history(request):
-	current_week = Setting.objects.get(setting="CurrentWeek")
-	user_id = request.user.id
+    current_week = Setting.objects.get(setting="CurrentWeek")
+    user_id = request.user.id
 
-	current_week_game_list = Game.objects.all().filter(week=current_week.value).order_by('id')[:15]
+    current_week_game_list = Game.objects.all().filter(week=current_week.value).order_by('id')[:15]
 
-	current_user_bets = Bet.objects.all().filter(week=current_week.value, userID=user_id)
+    current_user_bets = Bet.objects.all().filter(week=current_week.value, userID=user_id)
 
-	context = {'current_week_game_list': current_week_game_list,
-				'current_user_bets': current_user_bets }
+    context = {'current_week_game_list': current_week_game_list,
+               'current_user_bets': current_user_bets}
 
-	return render(request, 'collegebettingpoolapp/history.html', context)
+    return render(request, 'collegebettingpoolapp/history.html', context)
 
 
 def about(request):
