@@ -1,17 +1,14 @@
-{% extends 'base.html' %}
-
+{% extends 'base2.html' %}
 {% block title %}Betting History{% endblock %}
-
 {% block content %}
 <div id="heading" >
 	<h1>History</h1>
 </div>
-	
-	{% if user.is_authenticated %}
 
 <section id="main" class="wrapper">
 	<div class="inner">
 		<div class="content">
+			{% if user.is_authenticated %}
 			<header class="special">
 				<h2>Past Betting Sheets</h2>
 			</header>			
@@ -30,12 +27,12 @@
 
 				{% endfor %}
 			</table> -->
+		
+			{% else %}
+		  	<p>You are not logged in</p>
+			{% endif %}
 		</div>
 	</div>
 </section>
-
-	{% else %}
-  	<p>You are not logged in</p>
-	{% endif %}
 
 {% endblock %}

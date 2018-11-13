@@ -1,86 +1,73 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block title %}Home{% endblock %}
-
 {% block content %}
-<!-- Banner -->
-			<section id="banner">
-				<div class="inner">
-					<h1>College Betting Pool</h1>
-					<p>Designed by The Super Software Bros<br />
-						in partial fulfillment of the <a href="https://www.memphis.edu">University of Memphis</a> Software Engineering class.</p>
-				</div>
-				<video autoplay loop muted playsinline src="{% static 'collegebettingpoolapp/images/banner.mp4'%}"></video>
-			</section>
-			
-{% if user.is_authenticated %}  
-
 <!-- Highlights -->
-			<section class="wrapper">
-				<div class="inner">
-					<header class="special">
-						<h1>College Betting Pool</h1>
-						<p>Welcome, {{ user.username }}! Please make your bets below.</p>
+<section class="wrapper">
+	<div class="inner">
+		{% if user.is_authenticated %} 
+		<header class="special">
+			<h1>Admin Portal</h1>
+			<p>Welcome, {{ user.username }}! Please select where you would like to go:</p>
+		</header>
+		<div class="highlights">
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'password_reset' %}" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+						<h3>Accounts</h3>
 					</header>
-					<div class="highlights">
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-vcard-o"><span class="label">Icon</span></a>
-									<h3>Feugiat consequat</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-files-o"><span class="label">Icon</span></a>
-									<h3>Ante sem integer</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-floppy-o"><span class="label">Icon</span></a>
-									<h3>Ipsum consequat</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-line-chart"><span class="label">Icon</span></a>
-									<h3>Interdum gravida</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
-									<h3>Faucibus consequat</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-						<section>
-							<div class="content">
-								<header>
-									<a href="#" class="icon fa-qrcode"><span class="label">Icon</span></a>
-									<h3>Accumsan viverra</h3>
-								</header>
-								<p>Nunc lacinia ante nunc ac lobortis ipsum. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus.</p>
-							</div>
-						</section>
-					</div>
+					<p>Manage games, manage users, and reset password</p>
 				</div>
 			</section>
-{% else %}
-  <p>You are not logged in</p>
-{% endif %}
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-history' %}" class="icon fa-files-o"><span class="label">Icon</span></a>
+						<h3>History</h3>
+					</header>
+					<p>See past betting pools and their results.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'index' %}" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+						<h3>Submit A Sheet</h3>
+					</header>
+					<p>Fill out our own betting sheet.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-scores' %}" class="icon fa-line-chart"><span class="label">Icon</span></a>
+						<h3>Leaderboard</h3>
+					</header>
+					<p>See who is winning.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-about' %}" class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
+						<h3>About</h3>
+					</header>
+					<p>Learn about the Betting Pool and this project.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="https://github.com/aaronralex/college-betting-pool-app" class="icon fa-qrcode"><span class="label">Icon</span></a>
+						<h3>GitHub</h3>
+					</header>
+					<p>Check this out on GitHub.</p>
+				</div>
+			</section>
+		</div>
+		{% else %}
+		<p>You are not logged in</p>
+		{% endif %}
+	</div>
+</section>
 {% endblock %}
