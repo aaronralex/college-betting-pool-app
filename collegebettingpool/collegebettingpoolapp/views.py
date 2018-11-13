@@ -89,5 +89,5 @@ def elements(request):
 def generic(request):
     return render(request, 'collegebettingpoolapp/generics/generic.html')
 
-def homepage(request):
-    return render(request, 'collegebettingpoolapp/homepage.html')
+def sheet(request):
+    return render(request, 'collegebettingpoolapp/sheet.html')

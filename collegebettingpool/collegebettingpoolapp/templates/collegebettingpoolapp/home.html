@@ -1,57 +1,76 @@
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div id="heading" >
-	<h1>College Betting Sheet</h1>
-</div>
-{% if user.is_authenticated %}
-<section id="main" class="wrapper">
+<!-- Highlights -->
+<section class="wrapper">
 	<div class="inner">
-		<div class="content">
-		<header class="special">	
-			<h3>Welcome, {{ user.username }}!</h3>
-			<p>Please place your bets below:</p>
-	  	</header>
-	  	<form target="_self" method="post">
-
-	  	{% csrf_token %}
-
-		<div class="table-wrapper">
-			<table>
-				<thead>
-					<tr>
-						<th>Favorite</th>
-		  				<th>Line</th>
-		  				<th>Underdog</th>
-		  				<th>TV</th>
-		  				<th>Date/Time</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for game in current_week_game_list %}
-			  		<tr>
-			  			<td><input type="radio" id="g{{ game.id }}" name="g{{ game.id }}" value="{{game.favorite}}"><label for="g{{ game.id }}">{{ game.favorite }}</label></td>
-			  			<td>{{ game.line }}</td>
-			  			<td><input type="radio" id="g{{ game.id }}+" name="g{{ game.id }}" value="{{game.underdog}}"><label for="g{{ game.id }}+">{{ game.underdog }}</label></td>
-			  			<td>{{ game.tv }}</td>	
-			  			<td>{{ game.datetime }}</td>
-			  		</tr>
-			  		{% endfor %}
-				</tbody>
-			</table>
-		</div>
+		{% if user.is_authenticated %} 
 		<header class="special">
-			<h3>Game of the week</h3>
-		    <p>[Enter the Total Points Scored]<input type="text" name="game_of_the_week_points"></p>
-		  	<input type="hidden" name="userID" value="{{ user.id }}">
-	  		<input type="Submit" value="Submit Betting Sheet" />
-	  	</header>
-	  </form>
-	  </div>
+			<h1>Admin Portal</h1>
+			<p>Welcome, {{ user.username }}! Please select where you would like to go:</p>
+		</header>
+		<div class="highlights">
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'password_reset' %}" class="icon fa-vcard-o"><span class="label">Icon</span></a>
+						<h3>Accounts</h3>
+					</header>
+					<p>Manage games, manage users, and reset password</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-history' %}" class="icon fa-files-o"><span class="label">Icon</span></a>
+						<h3>History</h3>
+					</header>
+					<p>See past betting pools and their results.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-sheet' %}" class="icon fa-floppy-o"><span class="label">Icon</span></a>
+						<h3>Submit A Sheet</h3>
+					</header>
+					<p>Fill out our own betting sheet.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-scores' %}" class="icon fa-line-chart"><span class="label">Icon</span></a>
+						<h3>Leaderboard</h3>
+					</header>
+					<p>See who is winning.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="{% url 'bettingpool-about' %}" class="icon fa-paper-plane-o"><span class="label">Icon</span></a>
+						<h3>About</h3>
+					</header>
+					<p>Learn about the Betting Pool and this project.</p>
+				</div>
+			</section>
+			<section>
+				<div class="content">
+					<header>
+						<a href="https://github.com/aaronralex/college-betting-pool-app" class="icon fa-qrcode"><span class="label">Icon</span></a>
+						<h3>GitHub</h3>
+					</header>
+					<p>Check this out on GitHub.</p>
+				</div>
+			</section>
+		</div>
+		{% else %}
+		<header class="special">
+			<h3>Welcome to the College Betting Pool by The Super Software Bros!</h3>
+			<p>You are not logged in, please login to continue.</p>
+		</header>
+		{% endif %}
 	</div>
 </section>
-  <!--<button type="submit">Logout</button>-->
-{% else %}
-  <p>You are not logged in</p>
-{% endif %}
 {% endblock %}
