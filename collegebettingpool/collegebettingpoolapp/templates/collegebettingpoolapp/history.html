@@ -19,13 +19,32 @@
             <table>
                 {% for row in query %}
                 {% if row.6 == week %}
-                    <tr>
-                        <td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}"><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
-				 	    <td>{{ row.3 }}</td>
-					    <td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}"><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
-				  	    <td>{{ row.4 }}</td>
-				  	    <td>{{ row.5 }}</td>
-                    </tr>
+					{% if row.9 == None %}
+			  		<tr>
+			  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}" disabled><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+			  			<td>{{ row.3 }}</td>
+			  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}" disabled><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+			  			<td>{{ row.4 }}</td>
+			  			<td>{{ row.5 }}</td>
+			  		</tr>
+					{% elif row.9 == True %}
+					<tr>
+			  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}" disabled checked><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+			  			<td>{{ row.3 }}</td>
+			  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}" disabled><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+			  			<td>{{ row.4 }}</td>
+			  			<td>{{ row.5 }}</td>
+			  		</tr>
+					{% else %}
+					<tr>
+			  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}" disabled><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+			  			<td>{{ row.3 }}</td>
+			  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}" disabled checked><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+			  			<td>{{ row.4 }}</td>
+			  			<td>{{ row.5 }}</td>
+			  		</tr>
+                    {% endif %}               
+
                 {% endif %}
                 {% endfor %}
             </table>
