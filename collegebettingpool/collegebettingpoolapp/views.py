@@ -42,7 +42,9 @@ def sheet(request):
                         ON b.gameID = g.id
                     WHERE g.week = %s
                         AND (b.userID = %s
-                                OR b.userID IS NULL)""", [current_week.value, user_id])
+                                OR b.userID IS NULL)
+                    ORDER BY g.id ASC
+                                """, [current_week.value, user_id])
 
     query = cursor.fetchall()
 
@@ -72,8 +74,23 @@ def history(request):
 
     current_user_bets = Bet.objects.all().filter(week=current_week.value, userID=user_id)
 
+    cursor = connection.cursor()
+    cursor.execute("""
+                        SELECT g.*, b.winner
+                        FROM collegebettingpoolapp_game g 
+                        LEFT JOIN collegebettingpoolapp_bet b
+                            ON b.gameID = g.id
+                        WHERE g.week <> %s
+                            AND (b.userID = %s
+                                    OR b.userID IS NULL)
+                        ORDER BY g.week ASC, g.id ASC
+                                    """, [current_week.value, user_id])
+
+    query = cursor.fetchall()
+
     context = {'current_week_game_list': current_week_game_list,
-               'current_user_bets': current_user_bets}
+               'query': query,
+               'weeks': range(1, int(current_week.value))}
 
     return render(request, 'collegebettingpoolapp/history.html', context)
 
@@ -88,6 +105,7 @@ def elements(request):
 
 def generic(request):
     return render(request, 'collegebettingpoolapp/generics/generic.html')
+
 
 def index(request):
     return render(request, 'collegebettingpoolapp/home.html')
