@@ -29,14 +29,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for game in current_week_game_list %}
+						{% for row in query %}
+						{% if row.9 == None %}
 				  		<tr>
-				  			<td><input type="radio" id="g{{ game.id }}" name="g{{ game.id }}" value="{{game.favorite}}"><label for="g{{ game.id }}">{{ game.favorite }}</label></td>
-				  			<td>{{ game.line }}</td>
-				  			<td><input type="radio" id="g{{ game.id }}+" name="g{{ game.id }}" value="{{game.underdog}}"><label for="g{{ game.id }}+">{{ game.underdog }}</label></td>
-				  			<td>{{ game.tv }}</td>	
-				  			<td>{{ game.datetime }}</td>
+				  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}"><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+				  			<td>{{ row.3 }}</td>
+				  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}"><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+				  			<td>{{ row.4 }}</td>
+				  			<td>{{ row.5 }}</td>
 				  		</tr>
+						{% elif row.9 == True %}
+						<tr>
+				  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}" checked><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+				  			<td>{{ row.3 }}</td>
+				  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}"><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+				  			<td>{{ row.4 }}</td>
+				  			<td>{{ row.5 }}</td>
+				  		</tr>
+						{% else %}
+						<tr>
+				  			<td><input type="radio" id="g{{ row.0 }}" name="g{{ row.0 }}" value="{{row.1}}"><label for="g{{ row.0 }}">{{ row.1 }}</label></td>
+				  			<td>{{ row.3 }}</td>
+				  			<td><input type="radio" id="g{{ row.0 }}+" name="g{{ row.0 }}" value="{{row.2}}" checked><label for="g{{ row.0 }}+">{{ row.2 }}</label></td>
+				  			<td>{{ row.4 }}</td>
+				  			<td>{{ row.5 }}</td>
+				  		</tr>
+                        {% endif %}
 				  		{% endfor %}
 					</tbody>
 				</table>

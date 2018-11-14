@@ -50,7 +50,7 @@ def index(request):
                'current_user_bets': current_user_bets,
                'query': query}
 
-    return render(request, 'collegebettingpoolapp/home.html', context)
+    return render(request, 'collegebettingpoolapp/sheet.html', context)
 
 
 def scores(request):
