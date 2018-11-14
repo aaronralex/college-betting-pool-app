@@ -8,7 +8,7 @@ from django.db import connection
 from .models import Game, Bet, Setting, Participant
 
 
-def index(request):
+def sheet(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
     user_id = request.user.id
     current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
@@ -89,5 +89,5 @@ def elements(request):
 def generic(request):
     return render(request, 'collegebettingpoolapp/generics/generic.html')
 
-def sheet(request):
-    return render(request, 'collegebettingpoolapp/sheet.html')
+def index(request):
+    return render(request, 'collegebettingpoolapp/home.html')
