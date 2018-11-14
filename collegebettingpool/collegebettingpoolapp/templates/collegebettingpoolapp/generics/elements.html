@@ -1,46 +1,9 @@
-<!DOCTYPE HTML>
-{% load static %}
-<html>
-	<head>
-		<title>{% block title %}Elements - Super Software Bros{% endblock %}</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<link rel="stylesheet" href="{% static 'collegebettingpoolapp/assets/css/style.css'%}" />
-	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<a class="logo" href="{% url 'index' %}"><div class="block-img"><img class="logo-img" src="{% static 'collegebettingpoolapp/images/UofM_horiz_cmyk_SSB.png'%}" alt="The Super Software Bros"></div></a>
-				<nav>
-					<a href="#menu">Menu</a>
-				</nav>
-			</header>
-
-		<!-- Nav -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="{% url 'index' %}">Home</a></li>
-					{% if user.is_authenticated %}
-  					<li><a href="{% url 'bettingpool-history' %}">History</a></li>
-  					<li><a href="{% url 'bettingpool-scores' %}">Scores</a></li>
-  					<li><a href="{% url 'bettingpool-about' %}">About</a></li>
-  					<li><a href="{% url 'password_reset' %}">Reset Password</a></li>
-  					<li><a href="{% url 'logout' %}">Logout</a></li>
-  					{% else %}
-  					<li><a href="{% url 'login' %}">Login</a></li>
-  					{% endif %}
-					<li><a href="{% url 'bettingpool-elements' %}">Elements</a></li>
-					<li><a href="{% url 'bettingpool-generic' %}">Generic</a></li>
-				</ul>
-			</nav>
-
-		<!-- Heading -->
-			<div id="heading" >
-				<h1>Elements</h1>
-			</div>
+{% extends 'base2.html' %}
+{% block title %}Elements{% endblock %}
+{% block content %}
+<div id="heading" >
+	<h1>Elements</h1>
+</div>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
@@ -134,6 +97,9 @@
 										<li><a href="#" class="icon fa-apple"><span class="label">Apple</span></a></li>
 										<li><a href="#" class="icon fa-windows"><span class="label">Windows</span></a></li>
 										<li><a href="#" class="icon fa-500px"><span class="label">500px</span></a></li>
+										<li><a href="#" class="icon fa-check-circle"><span class="label">Check</span></a></li>
+										<li><a href="#" class="icon fa-star"><span class="label">Star</span></a></li>
+										<li><a href="#" class="icon fa-circle"><span class="label">Circle</span></a></li>
 									</ul>
 
 								<!-- Actions -->
@@ -516,5 +482,4 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-	</body>
-</html>
+{% endblock %}
