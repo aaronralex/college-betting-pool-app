@@ -60,8 +60,12 @@
 				</table>
 			</div>
 			<header class="special">
-				<h3>Game of the week</h3>
-			    <p>[Enter the Total Points Scored]<input type="text" name="game_of_the_week_points"></p>
+				<h3>Game of the Week: </h3>
+			    <p style="font-weight:bold">{% for game in game_of_the_week %}
+				   {{ game.favorite }} vs. {{ game.underdog }}
+				   {% endfor %}
+				</p>
+				<p> [Enter Your Bet for the Total Points Scored in the Game of the Week:] <input type="text" name="game_of_the_week_points"></p>
 			  	<input type="hidden" name="userID" value="{{ user.id }}">
 		  		<input type="Submit" value="Submit Betting Sheet" />
 		  	</header>

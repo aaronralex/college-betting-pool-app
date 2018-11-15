@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Game, Bet, Setting
+from .models import Game, Bet, Setting, GameOfWeekScore
 
 # def close_out_week(modeladmin, request, queryset):
 # 	for Game in queryset:
@@ -33,4 +33,5 @@ from .models import Game, Bet, Setting
 admin.site.register(Game)
 admin.site.register(Bet)
 admin.site.register(Setting)
+admin.site.register(GameOfWeekScore)
 #admin.site.register(GameAdmin)
