@@ -11,4 +11,5 @@ urlpatterns = [
     path('elements/', views.elements, name='bettingpool-elements'),
     path('generic/', views.generic, name='bettingpool-generic'),
     path('sheet/', views.sheet, name='bettingpool-sheet'),
+    path('closeout', views.closeout, name="bettingpool-closeout"),
 ]

@@ -19,14 +19,12 @@
 		  			<th>Participant</th>
 		  			<th>Total Points</th>
 		  		</tr>
-				
-				{{participants.0.user.username}}
 
 				{% for participant in participants %}
 
 				<tr>
 					<td> {{ forloop.counter }} </td>
-					<td> {{participant.user.username}} {{participants.0}}</td>
+					<td> {{participant.user.username}}</td>
 					<td> {{participant.total_points}} </td>
 				</tr>
 

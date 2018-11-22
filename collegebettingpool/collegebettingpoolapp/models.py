@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-#class Week(models.Model)
+# class Week(models.Model)
 #    week_number = models.IntegerField()
 
 class Game(models.Model):
@@ -22,9 +22,8 @@ class Game(models.Model):
 
 
 class Bet(models.Model):
-    #participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
-    #game = models.ForeignKey('Game', on_delete=models.CASCADE)
-
+    # participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
+    # game = models.ForeignKey('Game', on_delete=models.CASCADE)
 
     userID = models.IntegerField(default=0)
     gameID = models.IntegerField(default=0)
