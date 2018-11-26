@@ -110,14 +110,5 @@ def history(request):
 def about(request):
     return render(request, 'collegebettingpoolapp/about.html')
 
-
-def elements(request):
-    return render(request, 'collegebettingpoolapp/generics/elements.html')
-
-
-def generic(request):
-    return render(request, 'collegebettingpoolapp/generics/generic.html')
-
-
 def index(request):
     return render(request, 'collegebettingpoolapp/home.html')
