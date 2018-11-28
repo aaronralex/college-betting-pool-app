@@ -22,6 +22,9 @@
 							<li><a href="{% url 'admin:collegebettingpoolapp_game_changelist' %}">Manage Games</a></li>
 							<li><a href="{% url 'admin:auth_user_changelist' %}">Manage Users</a></li>
 							<li><a href="{% url 'password_reset' %}">Change Password</a></li>
+							{% if user.is_superuser %}
+							<li><a href="{% url 'bettingpool-closeout' %}">Close Out Week</a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</section>

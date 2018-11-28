@@ -35,15 +35,15 @@ def sheet(request):
                 except Bet.DoesNotExist:
                     b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
                     b.save()
-        
-        try:
-        	game_of_week_score_object = GameOfWeekScore.objects.get(user=request.user, week=current_week.value)
-        	game_of_week_score_object.score = game_of_the_week_points
-        	game_of_week_score_object.save()
-        except GameOfWeekScore.DoesNotExist:
-        	game_of_week_score = GameOfWeekScore(user=request.user, week=current_week.value, score=game_of_the_week_points)
-        	game_of_week_score.save()
 
+        try:
+            game_of_week_score_object = GameOfWeekScore.objects.get(user=request.user, week=current_week.value)
+            game_of_week_score_object.score = game_of_the_week_points
+            game_of_week_score_object.save()
+        except GameOfWeekScore.DoesNotExist:
+            game_of_week_score = GameOfWeekScore(user=request.user, week=current_week.value,
+                                                 score=game_of_the_week_points)
+            game_of_week_score.save()
 
     cursor = connection.cursor()
     cursor.execute("""
@@ -60,7 +60,7 @@ def sheet(request):
     query = cursor.fetchall()
 
     context = {'current_week_game_list': current_week_game_list,
-    		   'game_of_the_week': game_of_the_week,
+               'game_of_the_week': game_of_the_week,
                'current_user_bets': current_user_bets,
                'query': query}
 
@@ -105,6 +105,12 @@ def history(request):
                'weeks': range(1, int(current_week.value))}
 
     return render(request, 'collegebettingpoolapp/history.html', context)
+
+
+def closeout(request):
+    current_week = Setting.objects.get(setting="CurrentWeek")
+    context = {'current_week': int(current_week.value)}
+    return render(request, 'collegebettingpoolapp/closeout.html', context)
 
 
 def about(request):
