@@ -29,11 +29,20 @@ def sheet(request):
                     winner = False
                 try:
                     select_object = Bet.objects.get(userID=user_id, gameID=game.id)
-                    b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                            winner=winner, game=game)
+                    if "submit_sheet" in request.POST:
+                        b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
+                                winner=winner, game=game, is_valid=True)
+                    else:
+                        b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
+                                winner=winner, game=game)
                     b.save()
                 except Bet.DoesNotExist:
-                    b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game)
+                    if "submit_sheet" in request.POST:
+                        b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game,
+                                is_valid=True)
+                    else:
+                        b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
+                                winner=winner, game=game)
                     b.save()
 
         try:
@@ -109,12 +118,22 @@ def history(request):
 
 def closeout(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
+
+    if request.method == "POST":
+        text = "this line is to stop compilation errors"
+        # this is where the closeout operation is committed.
+
+    # this will occur on GET and POST requests
+    # it will get the information to be saved by the closeout function
+
+
     context = {'current_week': int(current_week.value)}
     return render(request, 'collegebettingpoolapp/closeout.html', context)
 
 
 def about(request):
     return render(request, 'collegebettingpoolapp/about.html')
+
 
 def index(request):
     return render(request, 'collegebettingpoolapp/home.html')
