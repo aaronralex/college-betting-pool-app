@@ -10,7 +10,7 @@
 		<div class="content">
 			{% if user.is_authenticated %}
 			<header class="special">	
-				<h3>Welcome, {{ user.username }}!</h3>
+				<h2>Welcome, {{ user.username }}!</h2>
 				<p>Please place your bets below:</p>
 		  	</header>
 		  	<form target="_self" method="post">
@@ -68,7 +68,7 @@
 				<p> [Enter Your Bet for the Total Points Scored in the Game of the Week:] <input type="text" name="game_of_the_week_points"></p>
 			  	<input type="hidden" name="userID" value="{{ user.id }}">
 				<input type="Submit" name="save_sheet" value="Save" />
-		  		<input type="Submit" name="submit_sheet" value="Submit Betting Sheet" />
+		  		<input type="Submit" name="submit_sheet" value="Submit Betting Sheet" class="primary"/>
 		  	</header>
 		  </form>
 	  
