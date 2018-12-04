@@ -10,7 +10,13 @@
         	<header class="special">
         		<h2><i class="icon fa-exclamation-triangle"></i> CAUTION <i class="icon fa-exclamation-triangle"></i></h2>
         		<p><i class="icon fa-exclamation-circle"></i> You are about to close out week {{ current_week }}. This will result in the following changes which are <strong>NOT</strong> reversible. <i class="icon fa-exclamation-circle"></i></p>
-        	</header>
+                <p>{{ participants.count }} users about to aquire {{ running_score }} combined points.</p>
+                <p>This will advance to week {{ current_week|add:"1" }}</p>
+        	    <form method="post">
+                    {% csrf_token %}
+                    <input type="Submit" value="Close Week {{ current_week }}" class="primary" />
+                </form>
+            </header>
             
         </div>
     </div>

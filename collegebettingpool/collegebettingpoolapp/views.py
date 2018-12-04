@@ -6,12 +6,12 @@ from django.template import loader
 from django.db import connection
 
 from .models import Game, Bet, Setting, Participant, GameOfWeekScore
-
+from .functions import predict_participant_score
 
 def sheet(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
     user_id = request.user.id
-    current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')[:15]
+    current_week_game_list = Game.objects.filter(week=current_week.value).order_by('id')
     current_user_bets = Bet.objects.filter(userID=user_id, week=current_week.value)
 
     game_of_the_week = Game.objects.filter(week=current_week.value, game_of_the_week=True)
@@ -38,21 +38,22 @@ def sheet(request):
                     b.save()
                 except Bet.DoesNotExist:
                     if "submit_sheet" in request.POST:
-                        b = Bet(userID=user_id, gameID=game.id, week=current_week.value, winner=winner, game=game,
-                                is_valid=True)
+                        b = Bet(userID=user_id, gameID=game.id, week=current_week.value,
+                                winner=winner, game=game, is_valid=True)
                     else:
-                        b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
+                        b = Bet(userID=user_id, gameID=game.id, week=current_week.value,
                                 winner=winner, game=game, is_valid=False)
                     b.save()
 
-        try:
-            game_of_week_score_object = GameOfWeekScore.objects.get(user=request.user, week=current_week.value)
-            game_of_week_score_object.score = game_of_the_week_points
-            game_of_week_score_object.save()
-        except GameOfWeekScore.DoesNotExist:
-            game_of_week_score = GameOfWeekScore(user=request.user, week=current_week.value,
-                                                 score=game_of_the_week_points)
-            game_of_week_score.save()
+        if game_of_the_week_points in request.POST:
+            try:
+                game_of_week_score_object = GameOfWeekScore.objects.get(user=request.user, week=current_week.value)
+                game_of_week_score_object.score = game_of_the_week_points
+                game_of_week_score_object.save()
+            except GameOfWeekScore.DoesNotExist:
+                game_of_week_score = GameOfWeekScore(user=request.user, week=current_week.value,
+                                                     score=game_of_the_week_points)
+                game_of_week_score.save()
 
     cursor = connection.cursor()
     cursor.execute("""
@@ -91,7 +92,7 @@ def history(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
     user_id = request.user.id
 
-    current_week_game_list = Game.objects.all().filter(week=current_week.value).order_by('id')[:15]
+    current_week_game_list = Game.objects.all().filter(week=current_week.value).order_by('id')
 
     current_user_bets = Bet.objects.all().filter(week=current_week.value, userID=user_id)
 
@@ -120,14 +121,37 @@ def closeout(request):
     current_week = Setting.objects.get(setting="CurrentWeek")
 
     if request.method == "POST":
-        text = "this line is to stop compilation errors"
-        # this is where the closeout operation is committed.
+        participant_list = Participant.objects.all()
+        running_score = 0
 
-    # this will occur on GET and POST requests
-    # it will get the information to be saved by the closeout function
+        for p in participant_list:
+            p_id = p.user.id
+            bets = Bet.objects.filter(userID=p_id, week=current_week.value, is_valid=True)
 
+            score, games_won = predict_participant_score(bet_list=bets)
+            running_score += score
 
-    context = {'current_week': int(current_week.value)}
+            p.total_points += score
+            p.save()
+
+        new_week = int(current_week.value) + 1
+        current_week.value = new_week
+        current_week.save()
+
+    participant_list = Participant.objects.all()
+    running_score = 0
+
+    for p in participant_list:
+        p_id = p.user.id
+        bets = Bet.objects.filter(userID=p_id, week=current_week.value, is_valid=True)
+
+        score, games_won = predict_participant_score(bet_list=bets)
+        running_score += score
+
+    context = {'current_week': int(current_week.value),
+               'running_score': running_score,
+               'participants': participant_list}
+
     return render(request, 'collegebettingpoolapp/closeout.html', context)
 
 
