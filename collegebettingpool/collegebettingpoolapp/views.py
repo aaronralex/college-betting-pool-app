@@ -34,7 +34,7 @@ def sheet(request):
                                 winner=winner, game=game, is_valid=True)
                     else:
                         b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                                winner=winner, game=game)
+                                winner=winner, game=game, is_valid=False)
                     b.save()
                 except Bet.DoesNotExist:
                     if "submit_sheet" in request.POST:
@@ -42,7 +42,7 @@ def sheet(request):
                                 is_valid=True)
                     else:
                         b = Bet(id=select_object.id, userID=user_id, gameID=game.id, week=current_week.value,
-                                winner=winner, game=game)
+                                winner=winner, game=game, is_valid=False)
                     b.save()
 
         try:
