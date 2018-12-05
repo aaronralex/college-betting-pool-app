@@ -79,7 +79,7 @@ def sheet(request):
 
 def scores(request):
     try:
-        participants = Participant.objects.all().order_by('total_points')
+        participants = Participant.objects.all().order_by('-total_points')
     except (KeyError, Participant.DoesNotExist):
         participants = ['null msg', 'null msg']
 
